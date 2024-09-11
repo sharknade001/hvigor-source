@@ -87,6 +87,8 @@ async function configuration(e) {
 function configProject(e, o) {
   o.start(), configNodeTask(e), configProjectTask(e), o.stop().setLog();
 }
+
+// sharknade note : evaluateNodeVigorFile 
 async function evalProject(e, o, t) {
   t.start();
   const i = hvigor_js_1.hvigor.getNodeByName(e.getName());
@@ -172,6 +174,8 @@ function configNodeTask(e) {
 function configProjectTask(e) {
   e.registry(new task_prune_js_1.PruneTask(e));
 }
+
+// sharknade note ： 绑定系统插件
 async function bindSystemPlugins(e, o, t) {
   if (
     (_log.debug("hvigorfile, binding system plugins", e),
@@ -242,6 +246,8 @@ async function bindCustomPlugins(e, o, t, i) {
         );
   }
 }
+
+// sharknade note: evaluateNodeVigorFile , 评估HvigorFile
 async function evaluateNodeVigorFile(e, o, t) {
   const i = "eval hvigorfile",
     r = "require hvigorfile",
@@ -280,4 +286,5 @@ async function evaluateNodeVigorFile(e, o, t) {
 function parseConfig(e, o) {
   o && e.loadConfig(o);
 }
+// sharknade note : 完了断线了 TODO zfc 
 exports.configuration = configuration;

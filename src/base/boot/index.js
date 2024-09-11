@@ -65,6 +65,7 @@ async function start() {
   await (0, init_js_1.init)(),
     _.stop().setLog(o, log_event_js_1.MetricLogType.INFO),
     a.start();
+  // sharknade ： 配置工程阶段  
   const u = await (0, configuration_js_1.configuration)(a);
   a.stop().setLog(t, log_event_js_1.MetricLogType.INFO),
     n.start(),
