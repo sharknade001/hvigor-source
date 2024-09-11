@@ -87,6 +87,8 @@ declare class HvigorCore {
     initRootProject(project: Project): void;
     private initSubModules;
     reset(): void;
+
+    // sharknde 这个东西有点香呀
     hvigorAfterNodeInternalHook(hvigorNodeName: string, fn: Consumer<HookArgMap[HookType.afterNodeEvaluate]>): void;
     getHvigorAfterNodeInternalHookList(hvigorNodeName: string): Consumer<HookArgMap[HookType.afterNodeEvaluate]>[] | undefined;
     hvigorNodeEvaluatedInternalHook(fn: Consumer<HookArgMap[HookType.nodesEvaluated]>): void;

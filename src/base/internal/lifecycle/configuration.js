@@ -53,15 +53,16 @@ async function configuration(e) {
   i.start();
   const l = process_1.default.hrtime(),
     _ = global_data_js_1.globalData.cliEnv,
-    c = hvigor_core_js_1.hvigorCore.getProject(),
+    project = hvigor_core_js_1.hvigorCore.getProject(),
     u = path_1.default.resolve(
       _.cwd,
       common_const_js_1.HvigorCommonConst.BUILD_FILE_NAME
     );
   i.stop().setLog(o, log_event_js_1.MetricLogType.INFO),
-    configProject(c, r),
-    await evalProject(c, u, s),
-    await evalSubModules(c, n),
+    configProject(project, r),
+    // TODO zfc 我要找一下，如何暴露资源的接口
+    await evalProject(project, u, s),
+    await evalSubModules(project, n),
     addConfigDependencies(a),
     await hvigor_lifecycle_hook_js_1.HvigorLifecycleHook.getInstance().runHook(
       hook_const_js_1.HookType.nodesEvaluated,
@@ -81,11 +82,17 @@ async function configuration(e) {
   return (
     _log.debug(`Configuration phase cost:${v}`),
     g.stop().setLog(t, log_event_js_1.MetricLogType.INFO),
-    c
+    project
   );
 }
-function configProject(e, o) {
-  o.start(), configNodeTask(e), configProjectTask(e), o.stop().setLog();
+
+/**
+ * 
+ * @param {*} project HvigorNodeCore
+ * @param {*} o 
+ */
+function configProject(project, o) {
+  o.start(), configNodeTask(project), configProjectTask(project), o.stop().setLog();
 }
 
 // sharknade note : evaluateNodeVigorFile 
@@ -271,7 +278,7 @@ async function evaluateNodeVigorFile(e, o, t) {
   a.stop().setLog(r, log_event_js_1.MetricLogType.INFO), g.start();
   const _ = l.default;
   _ && _.system
-    ? (parseConfig(e, l.default.config),
+    ? (parseConfig(e, l.default.config), // 解析config信息
       await bindSystemPlugins(l.default.system, e, o),
       await e.executeAfterBindSystemPluginsHook(),
       await bindCustomPlugins(l.default.plugins, e, o, g))
@@ -286,5 +293,5 @@ async function evaluateNodeVigorFile(e, o, t) {
 function parseConfig(e, o) {
   o && e.loadConfig(o);
 }
-// sharknade note : 完了断线了 TODO zfc 
+// sharknade note :  boot方法，调用改函数
 exports.configuration = configuration;
